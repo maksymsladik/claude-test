@@ -19,7 +19,6 @@ class Game {
     this.#reset();
   }
 
-  /* ---------- Чтение состояния ---------- */
   get turn() { return this.#turn; }
   get selected() { return this.#selected && { ...this.#selected }; }
   get lastMove() { return this.#lastMove; }
