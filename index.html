@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Звёздные Шашки</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="stars"></div>
+  <div class="stars stars-2"></div>
+
+  <!-- Вступительный «кроулинг» -->
+  <div id="intro" class="intro">
+    <div class="intro-far">Давным-давно в далёкой-далёкой галактике…</div>
+    <div class="crawl-wrap">
+      <div class="crawl">
+        <h2>Эпизод VIII×VIII</h2>
+        <h1>ЗВЁЗДНЫЕ ШАШКИ</h1>
+        <p>Галактика охвачена войной. Орден ДЖЕДАЕВ и армия СИТХОВ сошлись в решающей битве на древнем поле из шестидесяти четырёх клеток.</p>
+        <p>Каждый воин обязан атаковать врага, если видит его. Дошедший до края галактики становится МАСТЕРОМ и обретает полную силу…</p>
+        <p>Судьба галактики — в ваших руках.</p>
+      </div>
+    </div>
+    <button id="skipIntro" class="btn">В бой ▸</button>
+  </div>
+
+  <main class="app">
+    <header>
+      <h1 class="logo">ЗВЁЗДНЫЕ<span>ШАШКИ</span></h1>
+    </header>
+
+    <section class="hud">
+      <div class="player dark" id="panelDark">
+        <div class="name">Ситхи</div>
+        <div class="captured">Сбито: <b id="capDark">0</b></div>
+      </div>
+      <div class="status">
+        <div id="turnText" class="turn-text"></div>
+        <div id="hint" class="hint"></div>
+      </div>
+      <div class="player light" id="panelLight">
+        <div class="name">Джедаи</div>
+        <div class="captured">Сбито: <b id="capLight">0</b></div>
+      </div>
+    </section>
+
+    <div class="board-wrap">
+      <div id="board" class="board"></div>
+    </div>
+
+    <div class="controls">
+      <button id="undoBtn" class="btn">⟲ Отменить ход</button>
+      <button id="newBtn" class="btn">✦ Новая игра</button>
+    </div>
+  </main>
+
+  <div id="winOverlay" class="overlay hidden">
+    <div class="win-box">
+      <div id="winTitle" class="win-title"></div>
+      <div id="winSub" class="win-sub"></div>
+      <button id="againBtn" class="btn">Новая битва</button>
+    </div>
+  </div>
+
+  <script src="constants.js"></script>
+  <script src="piece.js"></script>
+  <script src="board.js"></script>
+  <script src="rules.js"></script>
+  <script src="game.js"></script>
+  <script src="renderer.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>
