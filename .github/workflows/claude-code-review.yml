@@ -1,0 +1,49 @@
+name: Claude Code Review
+
+# Автоматическое ревью от Claude для каждого нового pull request
+on:
+  pull_request:
+    types: [opened, reopened, ready_for_review]
+
+jobs:
+  claude-review:
+    # Черновики не ревьюим — ревью запустится, когда PR станет ready for review
+    if: github.event.pull_request.draft == false
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+      issues: read
+      id-token: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Claude Code Review
+        uses: anthropics/claude-code-action@v1
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          prompt: |
+            REPO: ${{ github.repository }}
+            PR NUMBER: ${{ github.event.pull_request.number }}
+
+            Сделай ревью этого pull request. Перед ревью прочитай CLAUDE.md
+            и .claude/skills/js-style/SKILL.md — там описаны архитектура
+            и стиль кода проекта.
+
+            Обрати внимание на:
+            - корректность правил русских шашек (обязательное взятие, серии
+              взятий, турецкий удар, превращение в дамку посреди серии);
+            - баги и граничные случаи в game.js, rules.js, board.js;
+            - соответствие стилю: ES6+ классы, приватные #поля, const,
+              без ES-модулей (страница должна работать из file://);
+            - UI-тексты и комментарии должны быть на русском.
+
+            Замечания к конкретным строкам оставляй inline-комментариями.
+            Общий итог оставь одним комментарием к PR через `gh pr comment`.
+            Пиши на русском, кратко и по делу.
+          claude_args: |
+            --allowedTools "mcp__github_inline_comment__create_inline_comment,Bash(gh pr comment:*),Bash(gh pr diff:*),Bash(gh pr view:*)"

@@ -5,13 +5,13 @@ class Game {
   #rules;
   #listeners = new Set();
   #turn;
-  #selected;      // {r, c}
-  #chain;         // {r, c} — фишка в середине серии взятий
-  #captured;      // [{r, c}] — сбитые в текущей серии (снимаются в конце)
-  #history;       // снимки на начало каждого хода
+  #selected;
+  #chain;
+  #captured;
+  #history;
   #lastMove;
   #capturedCount;
-  #result;        // {winner, loser, noPieces} или null
+  #result;
 
   constructor(board, rules) {
     this.#board = board;
